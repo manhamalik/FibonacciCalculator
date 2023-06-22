@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Fibonacci Number Calculator</title>
+    <style>
+        body {
+            background-color: #dddddd;
+            font-family: Verdana, Geneva, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .container {
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            width: 400px;
+            margin: 20px auto;
+            margin-top: 10px;
+            box-sizing: border-box;
+        }
+
+      .error-message {
+        color:red;
+      }
+      
+        img {
+            display: block;
+            margin: 0 auto;
+            width: 100%;
+            max-width: 400px;
+            border-radius: 10px;
+        }
+
+        .input-container {
+            margin-top: 1px;
+            text-align: center;
+            padding: 0 10px; /* Add horizontal padding */
+            box-sizing: border-box; /* Include padding in the total width */
+        }
+
+        .input-container input {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box; /* Include padding in the total width */
+            font-family: Verdana, Geneva, sans-serif;
+        }
+
+        .input-container button {
+            display: block;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #3c84c9;
+            color: #ffffff;
+            border: none;
+            cursor: pointer;
+            font-family: Verdana, Geneva, sans-serif;
+        }
+
+        .result-container {
+            margin-top: 20px;
+        }
+
+        .fibonacci-number {
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .fibonacci-chart {
+            display: flex;
+            justify-content: center;
+        }
+
+        .fibonacci-chart .column {
+            margin: 0 10px;
+        }
+
+        .fibonacci-chart table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .fibonacci-chart th, .fibonacci-chart td {
+            padding: 5px;
+            text-align: center;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <h1>Fibonacci Number Calculator</h1>
+    <img src="{{ url_for('static', filename='Fibonacci.jpg') }}" alt="Fibonacci Image">
+
+    <div class="container">
+<div class="input-container">
+    <p>The Fibonacci sequence is a series of numbers where each number is the sum of the two preceding ones. <br></br> Enter a number, and the corresponding Fibonacci number will be displayed, along with all the preceding Fibonacci numbers.</p>
+    {% if error_message %}
+    <p class="error-message">{{ error_message }}</p>
+    {% endif %}
+    <form method="POST" action="/">
+        <input type="number" name="number" placeholder="Enter a number" required>
+        <center><button type="submit">Calculate</button></center> <br>
+    </form>
+</div>
+
+
+        {% if number and sequence %}
+        <div class="result-container">
+            <div class="fibonacci-number">
+              The {{ number }}{{ number_suffix }} Fibonacci number is {{ sequence[number] }}
+            </div>
+
+            <div class="fibonacci-chart">
+                <div class="column">
+                    <table>
+                        <tbody>
+                            {% for i in range(number + 1) %}
+                            <tr>
+                                <td>{{ i }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="column">
+                    <table>
+                        <tbody>
+                            {% for i in range(number + 1) %}
+                            <tr>
+                                <td>{{ sequence[i] }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+</body>
+</html>
